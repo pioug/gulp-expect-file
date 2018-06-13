@@ -2,7 +2,7 @@
 
 var FileTester = require("./lib/file-tester");
 var ExpectationError = require("./lib/errors").ExpectationError;
-var gutil = require("gulp-util");
+var log = require("fancy-log");
 var PluginError = require("plugin-error");
 var through = require("through2");
 var xtend = require("xtend");
@@ -109,7 +109,7 @@ function expect(options, expectation) {
   function reportFailure(file, err) {
     if (err instanceof ExpectationError) {
       options.silent ||
-        gutil.log(
+        log(
           colors.red("\u2717 FAIL:"),
           colors.magenta(file.relative),
           "is",
@@ -117,7 +117,7 @@ function expect(options, expectation) {
         );
     } else {
       options.silent ||
-        gutil.log(
+        log(
           colors.red("\u2717 ERROR:"),
           colors.magenta(file.relative) + ":",
           err.message || err
@@ -127,7 +127,7 @@ function expect(options, expectation) {
 
   function reportPassing(file) {
     if (options.verbose && !options.silent) {
-      gutil.log(colors.green("\u2713 PASS:"), colors.magenta(file.relative));
+      log(colors.green("\u2713 PASS:"), colors.magenta(file.relative));
     }
   }
 
@@ -138,7 +138,7 @@ function expect(options, expectation) {
       })
       .join(", ");
     if (!options.silent) {
-      gutil.log(
+      log(
         colors.red("\u2717 FAIL:"),
         "Missing",
         colors.cyan(rules.length),
@@ -150,7 +150,7 @@ function expect(options, expectation) {
 
   function reportSummary() {
     options.silent ||
-      gutil.log(
+      log(
         "Tested",
         colors.cyan(numTests),
         "tests,",
