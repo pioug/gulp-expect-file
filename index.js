@@ -6,7 +6,7 @@ var gutil = require("gulp-util");
 var PluginError = require("plugin-error");
 var through = require("through2");
 var xtend = require("xtend");
-var color = gutil.colors;
+var colors = require("ansi-colors");
 
 module.exports = expect;
 
@@ -110,16 +110,16 @@ function expect(options, expectation) {
     if (err instanceof ExpectationError) {
       options.silent ||
         gutil.log(
-          color.red("\u2717 FAIL:"),
-          color.magenta(file.relative),
+          colors.red("\u2717 FAIL:"),
+          colors.magenta(file.relative),
           "is",
           err.message
         );
     } else {
       options.silent ||
         gutil.log(
-          color.red("\u2717 ERROR:"),
-          color.magenta(file.relative) + ":",
+          colors.red("\u2717 ERROR:"),
+          colors.magenta(file.relative) + ":",
           err.message || err
         );
     }
@@ -127,7 +127,7 @@ function expect(options, expectation) {
 
   function reportPassing(file) {
     if (options.verbose && !options.silent) {
-      gutil.log(color.green("\u2713 PASS:"), color.magenta(file.relative));
+      gutil.log(colors.green("\u2713 PASS:"), colors.magenta(file.relative));
     }
   }
 
@@ -139,11 +139,11 @@ function expect(options, expectation) {
       .join(", ");
     if (!options.silent) {
       gutil.log(
-        color.red("\u2717 FAIL:"),
+        colors.red("\u2717 FAIL:"),
         "Missing",
-        color.cyan(rules.length),
+        colors.cyan(rules.length),
         "expected files:",
-        color.magenta(missings)
+        colors.magenta(missings)
       );
     }
   }
@@ -152,13 +152,13 @@ function expect(options, expectation) {
     options.silent ||
       gutil.log(
         "Tested",
-        color.cyan(numTests),
+        colors.cyan(numTests),
         "tests,",
-        color.cyan(numPasses),
+        colors.cyan(numPasses),
         "passes,",
-        color.cyan(numFailures),
+        colors.cyan(numFailures),
         "failures:",
-        numFailures > 0 ? color.bgRed.white("FAIL") : color.green("PASS")
+        numFailures > 0 ? colors.bgRed.white("FAIL") : colors.green("PASS")
       );
   }
 

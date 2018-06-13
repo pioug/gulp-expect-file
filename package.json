@@ -21,6 +21,7 @@
     "expect"
   ],
   "dependencies": {
+    "ansi-colors": "^2.0.1",
     "async": "^2.6.1",
     "gulp-util": "^3.0.8",
     "minimatch": "^3.0.4",
