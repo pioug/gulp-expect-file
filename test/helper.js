@@ -1,4 +1,5 @@
 var gutil = require("gulp-util");
+var colors = require("ansi-colors");
 var temp = require("temp");
 var path = require("path");
 var es = require("event-stream");
@@ -84,7 +85,7 @@ gutil.log.capture = function() {
         return arg.toString();
       })
       .join(" ");
-    log = gutil.colors.stripColor(log);
+    log = colors.stripColor(log);
     logs += log + "\n";
     return this;
   };
