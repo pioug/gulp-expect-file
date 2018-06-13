@@ -3,7 +3,7 @@
 
 This plugin is intended for testing other gulp plugin.
 
-![Screen Shot](http://kotas.github.io/gulp-expect-file/screenshot.png)
+![Screen Shot](http://pioug.github.io/gulp-expect-file/screenshot.png)
 
 ## Usage
 
@@ -145,7 +145,7 @@ This is just a shortcut for `expect({ checkRealFile: true }, expectation)`.
 
 [npm-url]: https://npmjs.org/package/gulp-expect-file
 [npm-image]: https://badge.fury.io/js/gulp-expect-file.png
-[travis-url]: https://travis-ci.org/kotas/gulp-expect-file
-[travis-image]: https://travis-ci.org/kotas/gulp-expect-file.png?branch=master
-[daviddm-url]: https://david-dm.org/kotas/gulp-expect-file
-[daviddm-image]: https://david-dm.org/kotas/gulp-expect-file.png?theme=shields.io
+[travis-url]: https://travis-ci.org/pioug/gulp-expect-file
+[travis-image]: https://travis-ci.org/pioug/gulp-expect-file.png?branch=master
+[daviddm-url]: https://david-dm.org/pioug/gulp-expect-file
+[daviddm-image]: https://david-dm.org/pioug/gulp-expect-file.png?theme=shields.io
