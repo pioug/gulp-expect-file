@@ -5,11 +5,11 @@
   "copyright": "2014 Kota Saito",
   "description": "Expect files in pipes for gulp.js",
   "license": "MIT",
-  "homepage": "https://github.com/kotas/gulp-expect-file/",
-  "bugs": "https://github.com/kotas/gulp-expect-file/issues",
+  "homepage": "https://github.com/pioug/gulp-expect-file/",
+  "bugs": "https://github.com/pioug/gulp-expect-file/issues",
   "repository": {
     "type": "git",
-    "url": "git://github.com/kotas/gulp-expect-file.git"
+    "url": "git://github.com/pioug/gulp-expect-file.git"
   },
   "main": "index.js",
   "scripts": {
