@@ -1,5 +1,3 @@
-var gutil = require("gulp-util");
-var colors = require("ansi-colors");
 var File = require("vinyl");
 var Stream = require("stream");
 var temp = require("temp");
@@ -77,35 +75,4 @@ module.exports.createTemporaryFile = function(callback) {
 
     callback(null, file);
   });
-};
-
-gutil.log.capture = function() {
-  if (gutil.log.captured) return;
-
-  var logs = "";
-  var expectedPatterns = [];
-
-  var original = gutil.log;
-  gutil.log = function() {
-    var args = Array.prototype.slice.call(arguments);
-    var log = args
-      .map(function(arg) {
-        return arg.toString();
-      })
-      .join(" ");
-    log = colors.stripColor(log);
-    logs += log + "\n";
-    return this;
-  };
-  gutil.log.captured = true;
-  gutil.log.restore = function() {
-    gutil.log = original;
-
-    expectedPatterns.forEach(function(pattern) {
-      logs.should.match(pattern);
-    });
-  };
-  gutil.log.expect = function(pattern) {
-    expectedPatterns.push(pattern);
-  };
 };
