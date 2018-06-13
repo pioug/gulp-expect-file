@@ -28,6 +28,7 @@
     "xtend": "^4.0.1"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
     "event-stream": "^3.1.5",
     "mocha": "^5.2.0",
     "prettier": "^1.13.5",
