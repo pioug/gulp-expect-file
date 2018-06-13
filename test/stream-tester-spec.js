@@ -1,4 +1,3 @@
-var helper = require("./helper");
 var StreamTester = require("../lib/stream-tester");
 var PassThrough = require("stream").PassThrough;
 

@@ -157,7 +157,7 @@ describe("gulp-expect-file", function() {
   });
 
   describe(".real", function() {
-    var tempFile, tester;
+    var tempFile;
 
     before(function(done) {
       helper.createTemporaryFile(function(err, file) {
