@@ -3,6 +3,7 @@
 var FileTester = require("./lib/file-tester");
 var ExpectationError = require("./lib/errors").ExpectationError;
 var gutil = require("gulp-util");
+var PluginError = require("plugin-error");
 var through = require("through2");
 var xtend = require("xtend");
 var color = gutil.colors;
@@ -24,7 +25,7 @@ function expect(options, expectation) {
     options = {};
   }
   if (!expectation) {
-    throw new gutil.PluginError("gulp-expect-file", "Expectation required");
+    throw new PluginError("gulp-expect-file", "Expectation required");
   }
 
   options = xtend(
@@ -42,7 +43,7 @@ function expect(options, expectation) {
   try {
     var fileTester = new FileTester(expectation, options);
   } catch (e) {
-    throw new gutil.PluginError("gulp-expect-file", e.message || e);
+    throw new PluginError("gulp-expect-file", e.message || e);
   }
 
   var numTests = 0,
@@ -94,7 +95,7 @@ function expect(options, expectation) {
     if (numFailures > 0 && options.errorOnFailure) {
       this.emit(
         "error",
-        new gutil.PluginError(
+        new PluginError(
           "gulp-expect-file",
           "Failed " + numFailures + " expectations"
         )

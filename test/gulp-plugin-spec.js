@@ -2,6 +2,7 @@ var helper = require("./helper");
 var createFile = helper.createFile;
 var expect = require("../index");
 var gutil = require("gulp-util");
+var PluginError = require("plugin-error");
 
 function testStream(stream, callback) {
   var pipedFiles = [];
@@ -127,7 +128,7 @@ describe("gulp-expect-file", function() {
     it("should emit error event if expectation failed", function(done) {
       var stream = expect({ errorOnFailure: true }, { "foo.txt": "world" });
       testStream(stream, function(err) {
-        err.should.be.instanceof(gutil.PluginError);
+        err.should.be.instanceof(PluginError);
         err.message.should.equal("Failed 1 expectations");
         done();
       });
