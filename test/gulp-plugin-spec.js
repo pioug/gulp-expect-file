@@ -1,179 +1,178 @@
-var helper = require('./helper');
+var helper = require("./helper");
 var createFile = helper.createFile;
-var expect = require('../index');
-var gutil = require('gulp-util');
+var expect = require("../index");
+var gutil = require("gulp-util");
 
 function testStream(stream, callback) {
   var pipedFiles = [];
   var error = null;
-  stream.on('data', function (file) {
+  stream.on("data", function(file) {
     pipedFiles.push(file);
   });
-  stream.on('error', function (err) {
+  stream.on("error", function(err) {
     error = err;
   });
-  stream.on('end', function () {
+  stream.on("end", function() {
     callback(error, pipedFiles);
   });
   return stream;
 }
 
-describe('gulp-expect-file', function () {
-
-  beforeEach(function () {
+describe("gulp-expect-file", function() {
+  beforeEach(function() {
     gutil.log.capture();
   });
 
-  afterEach(function () {
+  afterEach(function() {
     gutil.log.restore();
   });
 
-  context('with file names', function () {
-    it('tests all files are expected', function (done) {
+  context("with file names", function() {
+    it("tests all files are expected", function(done) {
       gutil.log.expect(/PASS/);
-      var stream = expect(['foo.txt', 'bar.txt']);
-      testStream(stream, function (error, files) {
+      var stream = expect(["foo.txt", "bar.txt"]);
+      testStream(stream, function(error, files) {
         if (error) return done(error);
         files.should.have.length(2);
         done();
       });
-      stream.write(createFile('foo.txt'));
-      stream.write(createFile('bar.txt'));
+      stream.write(createFile("foo.txt"));
+      stream.write(createFile("bar.txt"));
       stream.end();
     });
   });
 
-  context('with contents matcher', function () {
-    it('tests file contents matches expectation', function (done) {
+  context("with contents matcher", function() {
+    it("tests file contents matches expectation", function(done) {
       gutil.log.expect(/PASS/);
       var stream = expect({
-        'foo.txt': 'world',
-        'bar.txt': /^hello/i,
+        "foo.txt": "world",
+        "bar.txt": /^hello/i
       });
       testStream(stream, done);
-      stream.write(createFile('foo.txt', 'Hello, world!'));
-      stream.write(createFile('bar.txt', 'Hello, earth!'));
+      stream.write(createFile("foo.txt", "Hello, world!"));
+      stream.write(createFile("bar.txt", "Hello, earth!"));
       stream.end();
     });
 
-    it('fails if file contents not matching expectation', function (done) {
+    it("fails if file contents not matching expectation", function(done) {
       gutil.log.expect(/FAIL: foo\.txt is not containing "world"/);
-      var stream = expect({ 'foo.txt': 'world' });
+      var stream = expect({ "foo.txt": "world" });
       testStream(stream, done);
-      stream.write(createFile('foo.txt', 'Hello, earth!'));
+      stream.write(createFile("foo.txt", "Hello, earth!"));
       stream.end();
     });
   });
 
-  context('with empty array', function () {
-    it('tests no files in stream', function (done) {
+  context("with empty array", function() {
+    it("tests no files in stream", function(done) {
       gutil.log.expect(/PASS/);
       var stream = expect([]);
       testStream(stream, done);
       stream.end();
     });
 
-    it('fails if any file is in stream', function (done) {
+    it("fails if any file is in stream", function(done) {
       gutil.log.expect(/FAIL: foo\.txt is unexpected/);
       var stream = expect([]);
       testStream(stream, done);
-      stream.write(createFile('foo.txt'));
+      stream.write(createFile("foo.txt"));
       stream.end();
     });
   });
 
-  context('with { reportUnexpected: true }', function () {
-    it('should report unexpected files', function (done) {
+  context("with { reportUnexpected: true }", function() {
+    it("should report unexpected files", function(done) {
       gutil.log.expect(/FAIL: bar\.txt is unexpected/);
-      var stream = expect({ reportUnexpected: true }, 'foo.txt');
+      var stream = expect({ reportUnexpected: true }, "foo.txt");
       testStream(stream, done);
-      stream.write(createFile('foo.txt'));
-      stream.write(createFile('bar.txt'));
+      stream.write(createFile("foo.txt"));
+      stream.write(createFile("bar.txt"));
       stream.end();
     });
   });
 
-  context('with { reportUnexpected: false }', function () {
-    it('should not report unexpected files', function (done) {
+  context("with { reportUnexpected: false }", function() {
+    it("should not report unexpected files", function(done) {
       gutil.log.expect(/PASS/);
-      var stream = expect({ reportUnexpected: false }, 'foo.txt');
+      var stream = expect({ reportUnexpected: false }, "foo.txt");
       testStream(stream, done);
-      stream.write(createFile('foo.txt'));
-      stream.write(createFile('bar.txt'));
+      stream.write(createFile("foo.txt"));
+      stream.write(createFile("bar.txt"));
       stream.end();
     });
   });
 
-  context('with { reportMissing: true }', function () {
-    it('should report missing files', function (done) {
+  context("with { reportMissing: true }", function() {
+    it("should report missing files", function(done) {
       gutil.log.expect(/FAIL: Missing 1 expected files: bar\.txt/);
-      var stream = expect({ reportMissing: true }, ['foo.txt', 'bar.txt']);
+      var stream = expect({ reportMissing: true }, ["foo.txt", "bar.txt"]);
       testStream(stream, done);
-      stream.write(createFile('foo.txt'));
+      stream.write(createFile("foo.txt"));
       stream.end();
     });
   });
 
-  context('with { reportMissing: false }', function () {
-    it('should not report missing files', function (done) {
+  context("with { reportMissing: false }", function() {
+    it("should not report missing files", function(done) {
       gutil.log.expect(/PASS/);
-      var stream = expect({ reportMissing: false }, ['foo.txt', 'bar.txt']);
+      var stream = expect({ reportMissing: false }, ["foo.txt", "bar.txt"]);
       testStream(stream, done);
-      stream.write(createFile('foo.txt'));
+      stream.write(createFile("foo.txt"));
       stream.end();
     });
   });
 
-  context('with { errorOnFailure: true }', function () {
-    it('should emit error event if expectation failed', function (done) {
-      var stream = expect({ errorOnFailure: true }, { 'foo.txt': 'world' });
-      testStream(stream, function (err) {
+  context("with { errorOnFailure: true }", function() {
+    it("should emit error event if expectation failed", function(done) {
+      var stream = expect({ errorOnFailure: true }, { "foo.txt": "world" });
+      testStream(stream, function(err) {
         err.should.be.instanceof(gutil.PluginError);
-        err.message.should.equal('Failed 1 expectations');
+        err.message.should.equal("Failed 1 expectations");
         done();
       });
-      stream.write(createFile('foo.txt', 'Hello, earth!'));
+      stream.write(createFile("foo.txt", "Hello, earth!"));
       stream.end();
     });
   });
 
-  context('with { silent: true }', function () {
-    it('should not write any logs', function (done) {
+  context("with { silent: true }", function() {
+    it("should not write any logs", function(done) {
       gutil.log.expect(/^$/);
-      var stream = expect({ silent: true }, ['foo.txt']);
+      var stream = expect({ silent: true }, ["foo.txt"]);
       testStream(stream, done);
-      stream.write(createFile('foo.txt'));
+      stream.write(createFile("foo.txt"));
       stream.end();
     });
   });
 
-  context('with { verbose: true }', function () {
-    it('should also report passings', function (done) {
+  context("with { verbose: true }", function() {
+    it("should also report passings", function(done) {
       gutil.log.expect(/PASS: foo\.txt/);
-      var stream = expect({ verbose: true }, ['foo.txt']);
+      var stream = expect({ verbose: true }, ["foo.txt"]);
       testStream(stream, done);
-      stream.write(createFile('foo.txt'));
+      stream.write(createFile("foo.txt"));
       stream.end();
     });
   });
 
-  describe('.real', function () {
+  describe(".real", function() {
     var tempFile, tester;
 
-    before(function (done) {
-      helper.createTemporaryFile(function (err, file) {
+    before(function(done) {
+      helper.createTemporaryFile(function(err, file) {
         if (err) return done(err);
         tempFile = file;
         done();
       });
     });
 
-    after(function () {
+    after(function() {
       tempFile && tempFile.cleanup();
       tempFile = null;
     });
 
-    it('tests if the files exists on file system', function (done) {
+    it("tests if the files exists on file system", function(done) {
       gutil.log.expect(/PASS/);
       var stream = expect.real([tempFile.relative]);
       testStream(stream, done);
@@ -181,20 +180,19 @@ describe('gulp-expect-file', function () {
       stream.end();
     });
 
-    it('should report if the file does not exists', function (done) {
+    it("should report if the file does not exists", function(done) {
       gutil.log.expect(/FAIL: nonexists\.txt is not on filesystem/);
-      var stream = expect.real(['nonexists.txt']);
+      var stream = expect.real(["nonexists.txt"]);
       testStream(stream, done);
-      stream.write(createFile('nonexists.txt'));
+      stream.write(createFile("nonexists.txt"));
       stream.end();
     });
 
-    it('passes with no files', function (done) {
+    it("passes with no files", function(done) {
       gutil.log.expect(/PASS/);
       var stream = expect.real([]);
       testStream(stream, done);
       stream.end();
     });
   });
-
 });
