@@ -1,8 +1,9 @@
 var gutil = require("gulp-util");
 var colors = require("ansi-colors");
+var File = require("vinyl");
+var Stream = require("stream");
 var temp = require("temp");
 var path = require("path");
-var es = require("event-stream");
 var ExpectationError = require("../lib/errors").ExpectationError;
 
 module.exports.should = require("should");
@@ -42,9 +43,16 @@ module.exports.createFile = function(relpath, contents) {
     contents = new Buffer(contents);
   }
   if (contents instanceof Array) {
-    contents = es.readArray(contents);
+    contents = (function() {
+      var stream = new Stream.PassThrough();
+      contents.forEach(function(item) {
+        stream.push(item);
+      });
+      stream.push(null);
+      return stream;
+    })();
   }
-  return new gutil.File({
+  return new File({
     cwd: "/test/",
     base: "/test/",
     path: "/test/" + relpath,
@@ -57,7 +65,7 @@ module.exports.createTemporaryFile = function(callback) {
   temp.open("gulp-expect-file", function(err, info) {
     if (err) return callback(err, null);
 
-    var file = new gutil.File({
+    var file = new File({
       cwd: path.dirname(info.path),
       base: path.dirname(info.path),
       path: info.path,
