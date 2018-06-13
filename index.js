@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-var FileTester = require('./lib/file-tester');
-var ExpectationError = require('./lib/errors').ExpectationError;
-var gutil = require('gulp-util');
-var through = require('through2');
-var xtend = require('xtend');
+var FileTester = require("./lib/file-tester");
+var ExpectationError = require("./lib/errors").ExpectationError;
+var gutil = require("gulp-util");
+var through = require("through2");
+var xtend = require("xtend");
 var color = gutil.colors;
 
 module.exports = expect;
 
-module.exports.real = function (options, expectation) {
+module.exports.real = function(options, expectation) {
   if (!expectation) {
     expectation = options;
     options = {};
@@ -24,25 +24,30 @@ function expect(options, expectation) {
     options = {};
   }
   if (!expectation) {
-    throw new gutil.PluginError('gulp-expect-file', 'Expectation required');
+    throw new gutil.PluginError("gulp-expect-file", "Expectation required");
   }
 
-  options = xtend({
-    reportUnexpected: true,
-    reportMissing: true,
-    checkRealFile: false,
-    errorOnFailure: false,
-    silent: false,
-    verbose: false
-  }, options);
+  options = xtend(
+    {
+      reportUnexpected: true,
+      reportMissing: true,
+      checkRealFile: false,
+      errorOnFailure: false,
+      silent: false,
+      verbose: false
+    },
+    options
+  );
 
   try {
     var fileTester = new FileTester(expectation, options);
   } catch (e) {
-    throw new gutil.PluginError('gulp-expect-file', e.message || e);
+    throw new gutil.PluginError("gulp-expect-file", e.message || e);
   }
 
-  var numTests = 0, numPasses = 0, numFailures = 0;
+  var numTests = 0,
+    numPasses = 0,
+    numFailures = 0;
 
   function eachFile(file, encoding, done) {
     // To fix relative path to be based on cwd (where gulpfile.js exists)
@@ -53,9 +58,9 @@ function expect(options, expectation) {
     numTests++;
 
     var _this = this;
-    fileTester.test(file, function (err) {
+    fileTester.test(file, function(err) {
       if (err && !options.reportUnexpected) {
-        if (err instanceof ExpectationError && err.message === 'unexpected') {
+        if (err instanceof ExpectationError && err.message === "unexpected") {
           err = null;
         }
       }
@@ -87,7 +92,13 @@ function expect(options, expectation) {
     reportSummary();
 
     if (numFailures > 0 && options.errorOnFailure) {
-      this.emit('error', new gutil.PluginError('gulp-expect-file', 'Failed ' + numFailures + ' expectations'));
+      this.emit(
+        "error",
+        new gutil.PluginError(
+          "gulp-expect-file",
+          "Failed " + numFailures + " expectations"
+        )
+      );
     }
 
     numTests = numPasses = numFailures = 0;
@@ -96,52 +107,59 @@ function expect(options, expectation) {
 
   function reportFailure(file, err) {
     if (err instanceof ExpectationError) {
-      options.silent || gutil.log(
-        color.red("\u2717 FAIL:"),
-        color.magenta(file.relative),
-        'is',
-        err.message
-      );
+      options.silent ||
+        gutil.log(
+          color.red("\u2717 FAIL:"),
+          color.magenta(file.relative),
+          "is",
+          err.message
+        );
     } else {
-      options.silent || gutil.log(
-        color.red("\u2717 ERROR:"),
-        color.magenta(file.relative) + ':',
-        (err.message || err)
-      );
+      options.silent ||
+        gutil.log(
+          color.red("\u2717 ERROR:"),
+          color.magenta(file.relative) + ":",
+          err.message || err
+        );
     }
   }
 
   function reportPassing(file) {
     if (options.verbose && !options.silent) {
-      gutil.log(
-        color.green("\u2713 PASS:"),
-        color.magenta(file.relative)
-      );
+      gutil.log(color.green("\u2713 PASS:"), color.magenta(file.relative));
     }
   }
 
   function reportMissing(rules) {
-    var missings = rules.map(function (r) { return r.toString() }).join(', ');
+    var missings = rules
+      .map(function(r) {
+        return r.toString();
+      })
+      .join(", ");
     if (!options.silent) {
       gutil.log(
         color.red("\u2717 FAIL:"),
-        'Missing',
+        "Missing",
         color.cyan(rules.length),
-        'expected files:',
+        "expected files:",
         color.magenta(missings)
       );
     }
   }
 
   function reportSummary() {
-    options.silent || gutil.log(
-      'Tested',
-      color.cyan(numTests), 'tests,',
-      color.cyan(numPasses), 'passes,',
-      color.cyan(numFailures), 'failures:',
-      (numFailures > 0 ? color.bgRed.white('FAIL') : color.green('PASS'))
-    );
+    options.silent ||
+      gutil.log(
+        "Tested",
+        color.cyan(numTests),
+        "tests,",
+        color.cyan(numPasses),
+        "passes,",
+        color.cyan(numFailures),
+        "failures:",
+        numFailures > 0 ? color.bgRed.white("FAIL") : color.green("PASS")
+      );
   }
 
   return through.obj(eachFile, endStream);
-};
+}
