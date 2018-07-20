@@ -144,8 +144,8 @@ This is just a shortcut for `expect({ checkRealFile: true }, expectation)`.
 
 
 [npm-url]: https://npmjs.org/package/gulp-expect-file
-[npm-image]: https://badge.fury.io/js/gulp-expect-file.png
+[npm-image]: https://img.shields.io/npm/v/gulp-expect-file.svg
 [travis-url]: https://travis-ci.org/pioug/gulp-expect-file
-[travis-image]: https://travis-ci.org/pioug/gulp-expect-file.png?branch=master
+[travis-image]: https://img.shields.io/travis/pioug/gulp-expect-file.svg
 [daviddm-url]: https://david-dm.org/pioug/gulp-expect-file
-[daviddm-image]: https://david-dm.org/pioug/gulp-expect-file.png?theme=shields.io
+[daviddm-image]: https://img.shields.io/david/pioug/gulp-expect-file.svg
