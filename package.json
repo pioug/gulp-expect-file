@@ -1,6 +1,6 @@
 {
   "name": "gulp-expect-file",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Kota Saito <kotas.nico@gmail.com>",
   "copyright": "2014 Kota Saito",
   "description": "Expect files in pipes for gulp.js",
