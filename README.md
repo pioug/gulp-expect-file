@@ -1,6 +1,6 @@
 # gulp-expect-file [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
-> Expectation on generated files for gulp 3
+> Expectation on generated files for gulp 3/4
 
 This plugin is intended for testing other gulp plugin.
 
