@@ -21,21 +21,21 @@
     "expect"
   ],
   "dependencies": {
-    "ansi-colors": "^3.2.3",
-    "async": "^2.6.1",
+    "ansi-colors": "^4.1.1",
+    "async": "^3.1.0",
     "fancy-log": "^1.3.3",
     "minimatch": "^3.0.4",
     "plugin-error": "^1.0.1",
-    "through2": "^3.0.0",
+    "through2": "^3.0.1",
     "vinyl": "^2.2.0",
-    "xtend": "^4.0.1"
+    "xtend": "^4.0.2"
   },
   "devDependencies": {
-    "eslint": "^5.12.0",
-    "mocha": "^5.2.0",
-    "mock-require": "^3.0.2",
-    "prettier": "^1.15.3",
+    "eslint": "^6.7.1",
+    "mocha": "^6.2.2",
+    "mock-require": "^3.0.3",
+    "prettier": "^1.19.1",
     "should": "^13.2.3",
-    "temp": "^0.9.0"
+    "temp": "^0.9.1"
   }
 }
