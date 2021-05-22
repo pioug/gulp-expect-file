@@ -1,4 +1,4 @@
-# gulp-expect-file [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# gulp-expect-file [![NPM version][npm-image]][npm-url] [![Build Status][gh-image]][gh-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 > Expectation on generated files for gulp 3/4
 
@@ -157,7 +157,7 @@ This is just a shortcut for `expect({ checkRealFile: true }, expectation)`.
 
 [npm-url]: https://npmjs.org/package/gulp-expect-file
 [npm-image]: https://img.shields.io/npm/v/gulp-expect-file.svg
-[travis-url]: https://travis-ci.org/pioug/gulp-expect-file
-[travis-image]: https://img.shields.io/travis/pioug/gulp-expect-file.svg
+[gh-url]: https://github.com/pioug/gulp-expect-file/actions/workflows/test.yml
+[gh-image]: https://github.com/pioug/gulp-expect-file/actions/workflows/test.yml/badge.svg
 [daviddm-url]: https://david-dm.org/pioug/gulp-expect-file
 [daviddm-image]: https://img.shields.io/david/pioug/gulp-expect-file.svg
