@@ -5,7 +5,6 @@ var ExpectationError = require("./lib/errors").ExpectationError;
 var log = require("fancy-log");
 var PluginError = require("plugin-error");
 var through = require("through2");
-var xtend = require("xtend");
 var colors = require("ansi-colors");
 
 module.exports = expect;
@@ -15,7 +14,7 @@ module.exports.real = function(options, expectation) {
     expectation = options;
     options = {};
   }
-  options = xtend({ checkRealFile: true }, options);
+  options = Object.assign({ checkRealFile: true }, options);
   return expect(options, expectation);
 };
 
@@ -28,7 +27,7 @@ function expect(options, expectation) {
     throw new PluginError("gulp-expect-file", "Expectation required");
   }
 
-  options = xtend(
+  options = Object.assign(
     {
       reportUnexpected: true,
       reportMissing: true,
