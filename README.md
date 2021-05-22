@@ -19,7 +19,7 @@ Then, add it to your `gulpfile.js`:
 ```js
 var expect = require("gulp-expect-file");
 
-gulp.task("copy", function() {
+gulp.task("copy", function () {
   gulp
     .src(["src/foo.txt"])
     .pipe(gulp.dest("dest/"))
@@ -132,7 +132,7 @@ If true, it emits `error` event when expectations got failed.
 gulp
   .src(["a.txt"])
   .pipe(expect({ errorOnFailure: true }, ["b.txt"]))
-  .on("error", function(err) {
+  .on("error", function (err) {
     console.error(err);
   });
 ```

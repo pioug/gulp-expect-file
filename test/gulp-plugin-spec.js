@@ -6,10 +6,10 @@ var PluginError = require("plugin-error");
 
 var logs = "";
 
-mock("fancy-log", function() {
+mock("fancy-log", function () {
   var args = Array.prototype.slice.call(arguments);
   var log = args
-    .map(function(arg) {
+    .map(function (arg) {
       return arg.toString();
     })
     .join(" ");
@@ -22,27 +22,27 @@ var expect = require("../index");
 function testStream(stream, callback) {
   var pipedFiles = [];
   var error = null;
-  stream.on("data", function(file) {
+  stream.on("data", function (file) {
     pipedFiles.push(file);
   });
-  stream.on("error", function(err) {
+  stream.on("error", function (err) {
     error = err;
   });
-  stream.on("end", function() {
+  stream.on("end", function () {
     callback(error, pipedFiles);
   });
   return stream;
 }
 
-describe("gulp-expect-file", function() {
-  beforeEach(function() {
+describe("gulp-expect-file", function () {
+  beforeEach(function () {
     logs = "";
   });
 
-  context("with file names", function() {
-    it("tests all files are expected", function(done) {
+  context("with file names", function () {
+    it("tests all files are expected", function (done) {
       var stream = expect(["foo.txt", "bar.txt"]);
-      testStream(stream, function(error, files) {
+      testStream(stream, function (error, files) {
         if (error) return done(error);
         files.should.have.length(2);
         logs.should.match(/PASS/);
@@ -54,13 +54,13 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with contents matcher", function() {
-    it("tests file contents matches expectation", function(done) {
+  context("with contents matcher", function () {
+    it("tests file contents matches expectation", function (done) {
       var stream = expect({
         "foo.txt": "world",
-        "bar.txt": /^hello/i
+        "bar.txt": /^hello/i,
       });
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/PASS/);
         done();
       });
@@ -69,9 +69,9 @@ describe("gulp-expect-file", function() {
       stream.end();
     });
 
-    it("fails if file contents not matching expectation", function(done) {
+    it("fails if file contents not matching expectation", function (done) {
       var stream = expect({ "foo.txt": "world" });
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/FAIL: foo\.txt is not containing "world"/);
         done();
       });
@@ -80,19 +80,19 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with empty array", function() {
-    it("tests no files in stream", function(done) {
+  context("with empty array", function () {
+    it("tests no files in stream", function (done) {
       var stream = expect([]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/PASS/);
         done();
       });
       stream.end();
     });
 
-    it("fails if any file is in stream", function(done) {
+    it("fails if any file is in stream", function (done) {
       var stream = expect([]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/FAIL: foo\.txt is unexpected/);
         done();
       });
@@ -101,10 +101,10 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with { reportUnexpected: true }", function() {
-    it("should report unexpected files", function(done) {
+  context("with { reportUnexpected: true }", function () {
+    it("should report unexpected files", function (done) {
       var stream = expect({ reportUnexpected: true }, "foo.txt");
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/FAIL: bar\.txt is unexpected/);
         done();
       });
@@ -114,10 +114,10 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with { reportUnexpected: false }", function() {
-    it("should not report unexpected files", function(done) {
+  context("with { reportUnexpected: false }", function () {
+    it("should not report unexpected files", function (done) {
       var stream = expect({ reportUnexpected: false }, "foo.txt");
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/PASS/);
         done();
       });
@@ -127,10 +127,10 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with { reportMissing: true }", function() {
-    it("should report missing files", function(done) {
+  context("with { reportMissing: true }", function () {
+    it("should report missing files", function (done) {
       var stream = expect({ reportMissing: true }, ["foo.txt", "bar.txt"]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/FAIL: Missing 1 expected files: bar\.txt/);
         done();
       });
@@ -139,10 +139,10 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with { reportMissing: false }", function() {
-    it("should not report missing files", function(done) {
+  context("with { reportMissing: false }", function () {
+    it("should not report missing files", function (done) {
       var stream = expect({ reportMissing: false }, ["foo.txt", "bar.txt"]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/PASS/);
         done();
       });
@@ -151,10 +151,10 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with { errorOnFailure: true }", function() {
-    it("should emit error event if expectation failed", function(done) {
+  context("with { errorOnFailure: true }", function () {
+    it("should emit error event if expectation failed", function (done) {
       var stream = expect({ errorOnFailure: true }, { "foo.txt": "world" });
-      testStream(stream, function(err) {
+      testStream(stream, function (err) {
         err.should.be.instanceof(PluginError);
         err.message.should.equal("Failed 1 expectations");
         done();
@@ -164,10 +164,10 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with { silent: true }", function() {
-    it("should not write any logs", function(done) {
+  context("with { silent: true }", function () {
+    it("should not write any logs", function (done) {
       var stream = expect({ silent: true }, ["foo.txt"]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/^$/);
         done();
       });
@@ -176,10 +176,10 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  context("with { verbose: true }", function() {
-    it("should also report passings", function(done) {
+  context("with { verbose: true }", function () {
+    it("should also report passings", function (done) {
       var stream = expect({ verbose: true }, ["foo.txt"]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/PASS: foo\.txt/);
         done();
       });
@@ -188,25 +188,25 @@ describe("gulp-expect-file", function() {
     });
   });
 
-  describe(".real", function() {
+  describe(".real", function () {
     var tempFile;
 
-    before(function(done) {
-      helper.createTemporaryFile(function(err, file) {
+    before(function (done) {
+      helper.createTemporaryFile(function (err, file) {
         if (err) return done(err);
         tempFile = file;
         done();
       });
     });
 
-    after(function() {
+    after(function () {
       tempFile && tempFile.cleanup();
       tempFile = null;
     });
 
-    it("tests if the files exists on file system", function(done) {
+    it("tests if the files exists on file system", function (done) {
       var stream = expect.real([tempFile.relative]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/PASS/);
         done();
       });
@@ -214,9 +214,9 @@ describe("gulp-expect-file", function() {
       stream.end();
     });
 
-    it("should report if the file does not exists", function(done) {
+    it("should report if the file does not exists", function (done) {
       var stream = expect.real(["nonexists.txt"]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/FAIL: nonexists\.txt is not on filesystem/);
         done();
       });
@@ -224,9 +224,9 @@ describe("gulp-expect-file", function() {
       stream.end();
     });
 
-    it("passes with no files", function(done) {
+    it("passes with no files", function (done) {
       var stream = expect.real([]);
-      testStream(stream, function() {
+      testStream(stream, function () {
         logs.should.match(/PASS/);
         done();
       });

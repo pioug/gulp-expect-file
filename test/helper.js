@@ -6,9 +6,9 @@ var ExpectationError = require("../lib/errors").ExpectationError;
 
 module.exports.should = require("should");
 
-Function.prototype.expectFail = function(expectedError) {
+Function.prototype.expectFail = function (expectedError) {
   var _this = this;
-  return function(err) {
+  return function (err) {
     if (err) {
       if (!(err instanceof ExpectationError)) {
         return _this(err);
@@ -36,14 +36,14 @@ Function.prototype.expectFail = function(expectedError) {
   };
 };
 
-module.exports.createFile = function(relpath, contents) {
+module.exports.createFile = function (relpath, contents) {
   if (typeof contents === "string") {
     contents = new Buffer(contents);
   }
   if (contents instanceof Array) {
-    contents = (function() {
+    contents = (function () {
       var stream = new Stream.PassThrough();
-      contents.forEach(function(item) {
+      contents.forEach(function (item) {
         stream.push(item);
       });
       stream.push(null);
@@ -54,22 +54,22 @@ module.exports.createFile = function(relpath, contents) {
     cwd: "/test/",
     base: "/test/",
     path: "/test/" + relpath,
-    contents: contents ? contents : null
+    contents: contents ? contents : null,
   });
 };
 
-module.exports.createTemporaryFile = function(callback) {
+module.exports.createTemporaryFile = function (callback) {
   temp.track();
-  temp.open("gulp-expect-file", function(err, info) {
+  temp.open("gulp-expect-file", function (err, info) {
     if (err) return callback(err, null);
 
     var file = new File({
       cwd: path.dirname(info.path),
       base: path.dirname(info.path),
       path: info.path,
-      contents: null
+      contents: null,
     });
-    file.cleanup = function() {
+    file.cleanup = function () {
       temp.cleanup();
     };
 

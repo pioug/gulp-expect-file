@@ -33,7 +33,7 @@
     "eslint": "^6.7.1",
     "mocha": "^6.2.2",
     "mock-require": "^3.0.3",
-    "prettier": "^1.19.1",
+    "prettier": "2.3.0",
     "should": "^13.2.3",
     "temp": "^0.9.1"
   }

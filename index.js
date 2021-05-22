@@ -9,7 +9,7 @@ var colors = require("ansi-colors");
 
 module.exports = expect;
 
-module.exports.real = function(options, expectation) {
+module.exports.real = function (options, expectation) {
   if (!expectation) {
     expectation = options;
     options = {};
@@ -34,7 +34,7 @@ function expect(options, expectation) {
       checkRealFile: false,
       errorOnFailure: false,
       silent: false,
-      verbose: false
+      verbose: false,
     },
     options
   );
@@ -58,7 +58,7 @@ function expect(options, expectation) {
     numTests++;
 
     var _this = this;
-    fileTester.test(file, function(err) {
+    fileTester.test(file, function (err) {
       if (err && !options.reportUnexpected) {
         if (err instanceof ExpectationError && err.message === "unexpected") {
           err = null;
@@ -132,7 +132,7 @@ function expect(options, expectation) {
 
   function reportMissing(rules) {
     var missings = rules
-      .map(function(r) {
+      .map(function (r) {
         return r.toString();
       })
       .join(", ");
