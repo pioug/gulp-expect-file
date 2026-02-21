@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git://github.com/pioug/gulp-expect-file.git"
   },
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha",
