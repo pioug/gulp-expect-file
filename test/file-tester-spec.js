@@ -151,7 +151,9 @@ describe("FileTester", function () {
     });
 
     after(function () {
-      tempFile && tempFile.cleanup();
+      if (tempFile) {
+        tempFile.cleanup();
+      }
       tempFile = null;
     });
 

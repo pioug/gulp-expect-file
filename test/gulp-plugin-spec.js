@@ -200,7 +200,9 @@ describe("gulp-expect-file", function () {
     });
 
     after(function () {
-      tempFile && tempFile.cleanup();
+      if (tempFile) {
+        tempFile.cleanup();
+      }
       tempFile = null;
     });
 
