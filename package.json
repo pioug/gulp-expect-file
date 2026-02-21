@@ -14,7 +14,9 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha",
-    "lint": "oxlint --deny-warnings . --ignore-path .oxignore"
+    "lint": "oxlint --deny-warnings . --ignore-path .oxignore",
+    "format": "oxfmt --write \"**/*.{js,json,yml,yaml,md}\" --ignore-path .oxignore",
+    "format:check": "oxfmt --check \"**/*.{js,json,yml,yaml,md}\" --ignore-path .oxignore"
   },
   "keywords": [
     "gulpplugin",
@@ -32,9 +34,9 @@
   },
   "devDependencies": {
     "oxlint": "^1.49.0",
+    "oxfmt": "^0.34.0",
     "mocha": "^8.4.0",
     "mock-require": "^3.0.3",
-    "prettier": "^2.3.0",
     "should": "^13.2.3",
     "temp": "^0.9.4"
   }
