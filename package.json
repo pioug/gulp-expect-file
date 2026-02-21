@@ -15,8 +15,8 @@
   "scripts": {
     "test": "node_modules/.bin/mocha",
     "lint": "oxlint --deny-warnings . --ignore-path .oxignore",
-    "format": "oxfmt --write \"**/*.{js,json,yml,yaml,md}\" --ignore-path .oxignore",
-    "format:check": "oxfmt --check \"**/*.{js,json,yml,yaml,md}\" --ignore-path .oxignore"
+    "format": "oxfmt --write \"**/*.{js,json,yml,yaml,md}\"",
+    "format:check": "oxfmt --check \"**/*.{js,json,yml,yaml,md}\""
   },
   "keywords": [
     "gulpplugin",
