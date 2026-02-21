@@ -1,4 +1,4 @@
-# gulp-expect-file [![NPM version][npm-image]][npm-url] [![Build Status][gh-image]][gh-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# gulp-expect-file [![NPM version][npm-image]][npm-url] [![Build Status][gh-image]][gh-url]
 
 > Expectation on generated files for gulp 3/4
 
@@ -20,7 +20,10 @@ Then, add it to your `gulpfile.js`:
 var expect = require("gulp-expect-file");
 
 gulp.task("copy", function () {
-  gulp.src(["src/foo.txt"]).pipe(gulp.dest("dest/")).pipe(expect("dest/foo.txt"));
+  gulp
+    .src(["src/foo.txt"])
+    .pipe(gulp.dest("dest/"))
+    .pipe(expect("dest/foo.txt"));
 });
 ```
 
@@ -111,7 +114,9 @@ Default: `false`
 If true, it also checks if the real file exists on the file system by `fs.exists()`.
 
 ```js
-gulp.src(["exist.txt", "nonexist.txt"]).pipe(expect({ checkRealFile: true }, "*.txt"));
+gulp
+  .src(["exist.txt", "nonexist.txt"])
+  .pipe(expect({ checkRealFile: true }, "*.txt"));
 
 // => FAIL: nonexist.txt not exists on filesystem
 ```
@@ -154,5 +159,3 @@ This is just a shortcut for `expect({ checkRealFile: true }, expectation)`.
 [npm-image]: https://img.shields.io/npm/v/gulp-expect-file.svg
 [gh-url]: https://github.com/pioug/gulp-expect-file/actions/workflows/test.yml
 [gh-image]: https://github.com/pioug/gulp-expect-file/actions/workflows/test.yml/badge.svg
-[daviddm-url]: https://david-dm.org/pioug/gulp-expect-file
-[daviddm-image]: https://img.shields.io/david/pioug/gulp-expect-file.svg
