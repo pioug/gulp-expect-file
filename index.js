@@ -36,7 +36,7 @@ function expect(options, expectation) {
       silent: false,
       verbose: false,
     },
-    options
+    options,
   );
 
   try {
@@ -94,10 +94,7 @@ function expect(options, expectation) {
     if (numFailures > 0 && options.errorOnFailure) {
       this.emit(
         "error",
-        new PluginError(
-          "gulp-expect-file",
-          "Failed " + numFailures + " expectations"
-        )
+        new PluginError("gulp-expect-file", "Failed " + numFailures + " expectations"),
       );
     }
 
@@ -108,19 +105,10 @@ function expect(options, expectation) {
   function reportFailure(file, err) {
     if (err instanceof ExpectationError) {
       options.silent ||
-        log(
-          colors.red("\u2717 FAIL:"),
-          colors.magenta(file.relative),
-          "is",
-          err.message
-        );
+        log(colors.red("\u2717 FAIL:"), colors.magenta(file.relative), "is", err.message);
     } else {
       options.silent ||
-        log(
-          colors.red("\u2717 ERROR:"),
-          colors.magenta(file.relative) + ":",
-          err.message || err
-        );
+        log(colors.red("\u2717 ERROR:"), colors.magenta(file.relative) + ":", err.message || err);
     }
   }
 
@@ -142,7 +130,7 @@ function expect(options, expectation) {
         "Missing",
         colors.cyan(rules.length),
         "expected files:",
-        colors.magenta(missings)
+        colors.magenta(missings),
       );
     }
   }
@@ -157,7 +145,7 @@ function expect(options, expectation) {
         "passes,",
         colors.cyan(numFailures),
         "failures:",
-        numFailures > 0 ? colors.bgRed.white("FAIL") : colors.green("PASS")
+        numFailures > 0 ? colors.bgRed.white("FAIL") : colors.green("PASS"),
       );
   }
 

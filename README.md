@@ -20,10 +20,7 @@ Then, add it to your `gulpfile.js`:
 var expect = require("gulp-expect-file");
 
 gulp.task("copy", function () {
-  gulp
-    .src(["src/foo.txt"])
-    .pipe(gulp.dest("dest/"))
-    .pipe(expect("dest/foo.txt"));
+  gulp.src(["src/foo.txt"]).pipe(gulp.dest("dest/")).pipe(expect("dest/foo.txt"));
 });
 ```
 
@@ -114,9 +111,7 @@ Default: `false`
 If true, it also checks if the real file exists on the file system by `fs.exists()`.
 
 ```js
-gulp
-  .src(["exist.txt", "nonexist.txt"])
-  .pipe(expect({ checkRealFile: true }, "*.txt"));
+gulp.src(["exist.txt", "nonexist.txt"]).pipe(expect({ checkRealFile: true }, "*.txt"));
 
 // => FAIL: nonexist.txt not exists on filesystem
 ```
