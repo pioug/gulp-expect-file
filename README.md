@@ -1,8 +1,8 @@
 # gulp-expect-file [![NPM version][npm-image]][npm-url] [![Build Status][gh-image]][gh-url]
 
-> Expectation on generated files for gulp 3/4
+> Expectation on generated files for Gulp 4
 
-This plugin is intended for testing other gulp plugin.
+This plugin is intended for testing other Gulp plugin.
 
 ![Screen Shot](http://pioug.github.io/gulp-expect-file/screenshot.png)
 
