@@ -13,7 +13,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha"
+    "test": "node_modules/.bin/mocha",
+    "lint": "oxlint --deny-warnings . --ignore-path .oxignore"
   },
   "keywords": [
     "gulpplugin",
@@ -30,7 +31,7 @@
     "vinyl": "^3.0.1"
   },
   "devDependencies": {
-    "eslint": "^7.27.0",
+    "oxlint": "^1.49.0",
     "mocha": "^8.4.0",
     "mock-require": "^3.0.3",
     "prettier": "^2.3.0",
